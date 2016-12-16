@@ -52,10 +52,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                                     AuthUI.EMAIL_PROVIDER,
                                     AuthUI.GOOGLE_PROVIDER)
                             .build(), LOGIN_SCREEN_REQUEST_CODE);
-        }
+        } else {
 
-        Fragment fragment = new OrderListFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.flContent, fragment).commit();
+            Fragment fragment = new OrderListFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent, fragment).commit();
+        }
     }
 
 
@@ -77,8 +78,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                 fragment = new ChatFragment();
                 break;
             default:
-                //System.exit(0);
                 Authenticator.logout(LandingActivity.this);
+                System.exit(0);
                 return true;
         }
 
