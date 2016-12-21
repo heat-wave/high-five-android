@@ -10,5 +10,30 @@
     <string name="surname">surname</string>
     <string name="chat">Чат</string>
     <string name="exit_title">Выход</string>
+    <string name="jobs">Активные заказы</string>
+
+    <string-array name="job_class">
+        <item>Заказчик</item>
+        <item>Школьник</item>
+        <item>Студент</item>
+    </string-array>
+
+    <string-array name="subject_school">
+        <item>Предмет</item>
+        <item>Математика</item>
+        <item>Русский язык</item>
+        <item>Физика</item>
+        <item>Химия</item>
+        <item>География</item>
+        <item>Биология</item>
+    </string-array>
+
+    <string-array name="subject_university">
+        <item>Предмет</item>
+        <item>Мат. анализ</item> <!-- id=1 -->
+        <item>Физика</item>
+        <item>Линейная алгебра</item>
+        <item>Вычислительная техника</item>
+    </string-array>
 
 </resources>

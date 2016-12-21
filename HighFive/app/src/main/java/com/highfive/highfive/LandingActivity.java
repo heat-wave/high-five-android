@@ -13,10 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.firebase.ui.auth.AuthUI;
-import com.highfive.highfive.fragments.ChatFragment;
-import com.highfive.highfive.fragments.HelpFragment;
-import com.highfive.highfive.fragments.OrderListFragment;
-import com.highfive.highfive.fragments.ProfileFragment;
+import com.highfive.highfive.fragments.*;
 import com.highfive.highfive.services.auth.Authenticator;
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
@@ -62,7 +59,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        Fragment fragment = null;
+        Fragment fragment;
         switch (id) {
             case R.id.nav_profile_fragment:
                 fragment = new ProfileFragment();
@@ -76,13 +73,14 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
             case R.id.nav_chat:
                 fragment = new ChatFragment();
                 break;
+            case R.id.nav_jobs:
+                fragment = new JobsListFragment();
+                break;
             default:
                 //System.exit(0);
                 Authenticator.logout(LandingActivity.this);
                 return true;
         }
-
-
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
