@@ -18,17 +18,20 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.highfive.highfive.R;
+import com.highfive.highfive.model.Bid;
 import com.highfive.highfive.model.Profile;
 import com.highfive.highfive.util.Cache;
 import com.highfive.highfive.util.HighFiveHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -50,6 +53,7 @@ public class OrderDetailsFragment extends Fragment {
     @InjectView(R.id.bid_card)                  RelativeLayout bidCard;
 
     private String orderId;
+    private ArrayList<Bid> bids = new ArrayList<>();
 
     @Nullable
     @Override
@@ -139,8 +143,22 @@ public class OrderDetailsFragment extends Fragment {
                     JSONArray items = contents.getJSONArray("items");
                     for (int i = 0; i < count; i++) {
                         JSONObject current = items.getJSONObject(i);
+                        DateTime updatedAt = DateTime.parse(current.getString("updatedAt"));
+                        DateTime createdAt = DateTime.parse(current.getString("createdAt"));
+                        int offer = current.getInt("offer");
+                        String userId = current.getString("creator");
+                        String orderId = current.getString("order");
+                        String bidId = current.getString("id");
+                        ArrayList<String> comments = new ArrayList<String>();
+                        JSONArray commentsJson = current.getJSONArray("comments");
+                        for (int j = 0; j < commentsJson.length(); j++) {
+                            comments.add(commentsJson.get(j).toString());
+                        }
+                        bids.add(new Bid(updatedAt, createdAt, offer, userId, orderId, bidId, comments));
                         //make a list item here
                     }
+                    RecyclerView.Adapter adapter = null; //TODO: all bids are parsed, need to put them into adapter
+                    bidsList.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
